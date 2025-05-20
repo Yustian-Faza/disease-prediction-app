@@ -60,21 +60,6 @@ model_svm.fit(x_train, y_train)
 model_log = LogisticRegression(max_iter=1000, random_state=42)
 model_log.fit(x_train, y_train)
 
-import pickle
-
-# Simpan model dan encoder ke dalam satu dictionary
-model_bundle = {
-    'xgb': model_xgb,
-    'svm': model_svm,
-    'log': model_log,
-    'label_encoder': le,
-    'symptom_columns': symptom_columns
-}
-
-# Simpan ke file
-with open('model.pkl', 'wb') as f:
-    pickle.dump(model_bundle, f)
-
 def create_input_vector(selected_symptoms, all_symptoms):
     input_vec = np.zeros(len(all_symptoms), dtype=int)
     for symptom in selected_symptoms:
