@@ -173,7 +173,7 @@ def get_next_symptom(current_symptoms_set, answered_symptoms_set, possible_disea
 
     if len(current_symptoms_set) == 0 and \
        len(answered_symptoms_set) == UTI_SPECIFIC_QUESTION_TRIGGER_COUNT and \
-       UTI_SPECIFIC_SYMPTOM not in answered_symptoms_set: # Fix: Use answered_symptoms_set
+       UTI_SPECIFIC_SYMPTOM not in answered_symptoms_set:
 
         if UTI_DISEASE_NAME in disease_symptom_map_arg and \
            UTI_SPECIFIC_SYMPTOM in disease_symptom_map_arg[UTI_DISEASE_NAME]:
@@ -466,16 +466,11 @@ def train_scikit_learn_model(X_train, y_train, X_test, y_test, n_splits=N_SPLITS
     )
     final_model.fit(X_train, y_train)
 
-    # --- ADDED CODE TO SAVE THE MODEL AND MLB ---
     try:
         with open('catboost_model.pkl', 'wb') as f:
             pickle.dump(final_model, f)
         st.sidebar.success("CatBoost model saved as catboost_model.pkl")
 
-        # Access mlb_global from the global scope if it's available
-        # It's better practice to pass mlb_global as an argument if possible
-        # or load it within this function if it's not a dependency of load_data's return.
-        # For this setup, we assume mlb_global is accessible here.
         if 'mlb_global' in globals() and globals()['mlb_global'] is not None:
             with open('mlb_binarizer.pkl', 'wb') as f:
                 pickle.dump(globals()['mlb_global'], f)
@@ -485,7 +480,6 @@ def train_scikit_learn_model(X_train, y_train, X_test, y_test, n_splits=N_SPLITS
 
     except Exception as e:
         st.sidebar.error(f"Error saving model or binarizer: {e}")
-    # --- END OF ADDED CODE ---
 
     y_pred_test = final_model.predict(X_test)
     y_pred_test = y_pred_test.flatten()
@@ -505,7 +499,6 @@ def train_scikit_learn_model(X_train, y_train, X_test, y_test, n_splits=N_SPLITS
         "average_precision_cv": np.mean(precisions),
         "average_recall_cv": np.mean(recalls),
         "average_f1_cv": np.mean(f1_scores),
-        # Metrik test set tetap disimpan di objek metrics, hanya tidak ditampilkan di UI
         "test_set_accuracy": test_accuracy,
         "test_set_precision": test_precision,
         "test_set_recall": test_recall,
@@ -747,17 +740,6 @@ if st.session_state['model_metrics']:
             st.write(f"  Recall: {metrics['cross_validation_recall_scores'][i]:.4f}")
             st.write(f"  F1-Score: {metrics['cross_validation_f1_scores'][i]:.4f}")
 
-    # --- Bagian yang dihapus ---
-    # st.sidebar.markdown("### Test Set Results (on Unseen Data):")
-    # st.sidebar.write(f"**Accuracy (Test Set):** {metrics['test_set_accuracy']:.4f}")
-    # st.sidebar.write(f"**Precision (Test Set):** {metrics['test_set_precision']:.4f}")
-    # st.sidebar.write(f"**Recall (Test Set):** {metrics['test_set_recall']:.4f}")
-    # st.sidebar.write(f"**F1-Score (Test Set):** {metrics['test_set_f1_score']:.4f}")
-
-    # with st.sidebar.expander("Detailed Classification Report (Test Set)"):
-    #     report_df = pd.DataFrame(metrics['test_set_classification_report']).transpose()
-    #     st.dataframe(report_df)
-    # --- Akhir Bagian yang dihapus ---
 else:
     st.sidebar.info("Model metrics not available.")
 
