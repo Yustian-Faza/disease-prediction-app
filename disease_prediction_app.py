@@ -487,9 +487,6 @@ def train_scikit_learn_model(X_train, y_train, X_test, y_test, n_splits=N_SPLITS
         st.sidebar.error(f"Error saving model or binarizer: {e}")
     # --- END OF ADDED CODE ---
 
-    # Menghapus bagian evaluasi test set karena Anda ingin itu dihapus dari tampilan.
-    # Namun, saya akan menyimpan metrik test set di sini jika suatu saat dibutuhkan secara internal,
-    # tetapi tidak akan ditampilkan di sidebar.
     y_pred_test = final_model.predict(X_test)
     y_pred_test = y_pred_test.flatten()
     test_accuracy = accuracy_score(y_test, y_pred_test)
