@@ -2,6 +2,12 @@
 
 This repository contains a Streamlit web application for interactive disease consultation based on patient‑reported symptoms. The app guides users through adaptive questions and predicts the most likely diseases using a CatBoost multiclass classifier and a symptom–disease knowledge base. This project was developed as part of the final project for Statistical Machine Learning class.
 
+## Live Demo
+
+You can try the deployed app here:
+
+- https://disease-prediction-app-b6m9jufkbtgrbkd79hfdxx.streamlit.app/
+
 ## Features
 
 - Interactive, step‑by‑step symptom questioning flow.
@@ -32,28 +38,6 @@ Place the following files in the same directory as `disease_prediction_app.py`:
 - `disease_precaution.csv` – mapping from disease names to precaution advice.
 
 Ensure that disease names are consistently formatted across all files (no leading/trailing spaces).
-
-## Installation
-
-1. Create and activate a virtual environment.
-2. Install required packages:
-   - `streamlit`
-   - `catboost`
-   - `scikit-learn`
-   - `pandas`
-   - `numpy`
-   - `openpyxl`
-
-3. Clone this repository and move into the project directory.
-4. Copy all required data files into the same directory as `disease_prediction_app.py`.
-
-## How to Run
-
-Run the Streamlit app from your terminal:
-
-- `streamlit run disease_prediction_app.py`
-
-Then open the URL shown in the terminal (usually `http://localhost:8501`) in your browser.
 
 ## How It Works
 
