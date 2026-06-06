@@ -56,9 +56,9 @@ def load_data():
         st.error(f"Error: {e}. Make sure all required files (Training_reordered.xlsx, Testing_reordered.xlsx, Symptom-severity.csv, disease_description.csv, disease_precaution.csv) are in the same directory as your application.")
         return None, None, None, None, None, None, None, None, None, None, None, None
 
-    df_train = df_train.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    df_train = df_train.map(lambda x: x.strip() if isinstance(x, str) else x)
     df_train = df_train.replace('none', 0).fillna(0)
-    df_test = df_test.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    df_test = df_test.map(lambda x: x.strip() if isinstance(x, str) else x)
     df_test = df_test.replace('none', 0).fillna(0)
 
 
