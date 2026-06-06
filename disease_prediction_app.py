@@ -417,7 +417,6 @@ df_train_base, df_test_base, df_symptom_unused, X_train_data, y_train_data, X_te
 
 
 # Inisialisasi model Scikit-learn
-@st.cache_resource
 def train_scikit_learn_model(X_train, y_train, X_test, y_test, n_splits=N_SPLITS_CROSS_VALIDATION):
     model = CatBoostClassifier(
         iterations=50,
